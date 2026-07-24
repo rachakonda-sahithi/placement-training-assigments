@@ -1,0 +1,129 @@
+Basic Java Programs
+
+1. Area of Circle
+
+import java.util.Scanner;
+
+public class AreaCircle {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter radius: ");
+        double r = sc.nextDouble();
+
+        double area = 3.14 * r * r;
+
+        System.out.println("Area of Circle = " + area);
+
+        sc.close();
+    }
+}
+
+output:
+Enter radius: 7
+Area of Circle = 153.86
+
+2. Area of Triangle
+
+import java.util.Scanner;
+
+public class AreaTriangle {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter base: ");
+        double base = sc.nextDouble();
+
+        System.out.print("Enter height: ");
+        double height = sc.nextDouble();
+
+        double area = 0.5 * base * height;
+
+        System.out.println("Area of Triangle = " + area);
+
+        sc.close();
+    }
+}
+
+output:
+Enter base: 10
+Enter height: 8
+Area of Triangle = 40.0
+
+3. Area of Rectangle
+import java.util.Scanner;
+
+public class AreaRectangle {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter length: ");
+        double length = sc.nextDouble();
+
+        System.out.print("Enter breadth: ");
+        double breadth = sc.nextDouble();
+
+        double area = length * breadth;
+
+        System.out.println("Area of Rectangle = " + area);
+
+        sc.close();
+    }
+}
+
+output:
+Enter length: 12
+Enter breadth: 5
+Area of Rectangle = 60.0
+
+4.Area of Isosceles Triangle
+import java.util.Scanner;
+
+public class AreaIsoscelesTriangle {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter equal side: ");
+        double a = sc.nextDouble();
+
+        System.out.print("Enter base: ");
+        double b = sc.nextDouble();
+
+        double area = (b * Math.sqrt((4 * a * a) - (b * b))) / 4;
+
+        System.out.println("Area of Isosceles Triangle = " + area);
+
+        sc.close();
+    }
+}
+
+output:
+Enter equal side: 5
+Enter base: 6
+Area of Isosceles Triangle = 12.0
+
+5. Area of Parallelogram
+import java.util.Scanner;
+
+public class AreaParallelogram {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter base: ");
+        double base = sc.nextDouble();
+
+        System.out.print("Enter height: ");
+        double height = sc.nextDouble();
+
+        double area = base * height;
+
+        System.out.println("Area of Parallelogram = " + area);
+
+        sc.close();
+    }
+}
+
+output:
+Enter base: 15
+Enter height: 8
+Area of Parallelogram = 120.0
