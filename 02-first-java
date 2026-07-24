@@ -1,0 +1,146 @@
+1. Check Whether a Number is Even or Odd
+import java.util.Scanner;
+
+public class EvenOdd {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+        if (num % 2 == 0) {
+            System.out.println(num + " is Even");
+        } else {
+            System.out.println(num + " is Odd");
+        }
+
+        sc.close();
+    }
+}
+
+output:
+Enter a number: 24
+24 is Even
+
+
+2.Take Name as Input and Print Greeting Message
+import java.util.Scanner;
+
+public class Greeting {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Hello " + name + "! Welcome.");
+
+        sc.close();
+    }
+}
+
+output:
+Enter your name: Sahithi
+Hello Sahithi! Welcome.
+
+3.Find Simple Interest
+import java.util.Scanner;
+
+public class SimpleInterest {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Principal: ");
+        float p = sc.nextFloat();
+
+        System.out.print("Enter Time: ");
+        float t = sc.nextFloat();
+
+        System.out.print("Enter Rate: ");
+        float r = sc.nextFloat();
+
+        float si = (p * t * r) / 100;
+
+        System.out.println("Simple Interest = " + si);
+
+        sc.close();
+    }
+}
+
+output:
+Enter Principal: 10000
+Enter Time: 2
+Enter Rate: 5
+Simple Interest = 1000.0
+
+4.Simple Calculator Using If Conditions
+import java.util.Scanner;
+
+public class Calculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        double a = sc.nextDouble();
+
+        System.out.print("Enter second number: ");
+        double b = sc.nextDouble();
+
+        System.out.print("Enter operator (+, -, *, /): ");
+        char op = sc.next().charAt(0);
+
+        if (op == '+') {
+            System.out.println("Result = " + (a + b));
+        } else if (op == '-') {
+            System.out.println("Result = " + (a - b));
+        } else if (op == '*') {
+            System.out.println("Result = " + (a * b));
+        } else if (op == '/') {
+            if (b != 0) {
+                System.out.println("Result = " + (a / b));
+            } else {
+                System.out.println("Division by zero is not possible.");
+            }
+        } else {
+            System.out.println("Invalid Operator");
+        }
+
+        sc.close();
+    }
+}
+
+output:
+Enter first number: 20
+Enter second number: 5
+Enter operator (+, -, *, /): *
+Result = 100.0
+
+5.Find the Largest of Two Numbers
+import java.util.Scanner;
+
+public class LargestNumber {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter first number: ");
+        int a = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int b = sc.nextInt();
+
+        if (a > b) {
+            System.out.println(a + " is the largest number.");
+        } else if (b > a) {
+            System.out.println(b + " is the largest number.");
+        } else {
+            System.out.println("Both numbers are equal.");
+        }
+
+        sc.close();
+    }
+}
+
+output:
+Enter first number: 45
+Enter second number: 78
+78 is the largest number.
