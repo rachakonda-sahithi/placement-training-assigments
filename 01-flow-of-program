@@ -1,0 +1,31 @@
+1. Input a year and find whether it is a leap year or not
+START
+Input year
+IF year % 400 = 0 THEN
+    Print "Leap Year"
+ELSE IF year % 100 = 0 THEN
+    Print "Not a Leap Year"
+ELSE IF year % 4 = 0 THEN
+    Print "Leap Year"
+ELSE
+    Print "Not a Leap Year"
+END IF
+
+STOP
+
+2. Take two numbers and print the sum of both.
+START
+Input A, B
+Sum = A + B
+Print Sum
+STOP
+
+3. Take a number as input and print the multiplication table for it.
+START
+Input N
+
+FOR i = 1 TO 10
+    Print N, "x", i, "=", N * i
+END FOR
+
+STOP
