@@ -1,337 +1,298 @@
-1.Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. The linked list holds the binary representation of a number.
-
-Return the decimal value of the number in the linked list.
-
-The most significant bit is at the head of the linked list.
+1.Given two binary strings a and b, return their sum as a binary string.
 
  
 
 Example 1:
 
-
-Input: head = [1,0,1]
-Output: 5
-Explanation: (101) in base 2 = (5) in base 10
+Input: a = "11", b = "1"
+Output: "100"
 Example 2:
 
-Input: head = [0]
-Output: 0
+Input: a = "1010", b = "1011"
+Output: "10101"
  
 
 Constraints:
 
-The Linked List is not empty.
-Number of nodes will not exceed 30.
-Each node's value is either 0 or 1.
+1 <= a.length, b.length <= 104
+a and b consist only of '0' or '1' characters.
+Each string does not contain leading zeros except for the zero itself.
 
 Answer:-
 
 class Solution {
-    public int getDecimalValue(ListNode head) {
-        int ans = 0;
-        ListNode curr = head;
-        
-        while (curr != null) {
-            ans = (ans << 1) | curr.val;
-            curr = curr.next;
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int carry = 0;
+
+        while (i >= 0 || j >= 0 || carry == 1) {
+            int sum = carry;
+            if (i >= 0) {
+                sum += a.charAt(i) - '0';
+                i--;
+            }
+            if (j >= 0) {
+                sum += b.charAt(j) - '0';
+                j--;
+            }
+            sb.append(sum % 2);
+            carry = sum / 2;
         }
-        
-        return ans;
+
+        return sb.reverse().toString();
     }
 }
 
 
-2.Given the head of a singly linked list, reverse the list, and return the reversed list.
+2.Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
 
  
 
 Example 1:
 
+Input: nums = [2,2,1]
 
-Input: head = [1,2,3,4,5]
-Output: [5,4,3,2,1]
+Output: 1
+
 Example 2:
 
+Input: nums = [4,1,2,1,2]
 
-Input: head = [1,2]
-Output: [2,1]
+Output: 4
+
 Example 3:
 
-Input: head = []
-Output: []
+Input: nums = [1]
+
+Output: 1
+
  
 
 Constraints:
 
-The number of nodes in the list is the range [0, 5000].
--5000 <= Node.val <= 5000
+1 <= nums.length <= 3 * 104
+-3 * 104 <= nums[i] <= 3 * 104
+Each element in the array appears twice except for one element which appears only once.
 
 Answer:-
 
 class Solution {
-    public ListNode reverseList(ListNode head) {
-        ListNode prev = null;
-        ListNode curr = head;
-
-        while (curr != null) {
-            ListNode nextTemp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nextTemp;
+    public int singleNumber(int[] nums) {
+        int result = 0;
+        
+        for (int num : nums) {
+            result ^= num;
         }
-
-        return prev;
+        
+        return result;
     }
 }
 
-3.Given the head of a singly linked list, return the middle node of the linked list.
 
-If there are two middle nodes, return the second middle node.
+3.Reverse bits of a given 32 bits signed integer.
 
  
 
 Example 1:
 
+Input: n = 43261596
 
-Input: head = [1,2,3,4,5]
-Output: [3,4,5]
-Explanation: The middle node of the list is node 3.
+Output: 964176192
+
+Explanation:
+
+Integer	Binary
+43261596	00000010100101000001111010011100
+964176192	00111001011110000010100101000000
 Example 2:
 
+Input: n = 2147483644
 
+Output: 1073741822
 
-Input: head = [1,2,3,4,5,6]
-Output: [4,5,6]
-Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
+Explanation:
+
+Integer	Binary
+2147483644	01111111111111111111111111111100
+1073741822	00111111111111111111111111111110
  
 
 Constraints:
 
-The number of nodes in the list is in the range [1, 100].
-1 <= Node.val <= 100
+0 <= n <= 231 - 2
+n is even.
+ 
+
+Follow up: If this function is called many times, how would you optimize it?
 
 Answer:-
 
-class Solution {
-    public ListNode middleNode(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+public class Solution {
+    public int reverseBits(int n) {
+        int result = 0;
+        
+        for (int i = 0; i < 32; i++) {
+            result <<= 1;
+            result |= (n & 1);
+            n >>>= 1;
         }
-
-        return slow;
+        
+        return result;
     }
 }
 
-4.Design a simplified version of Twitter where users can post tweets, follow/unfollow another user, and is able to see the 10 most recent tweets in the user's news feed.
+4.Given an integer array nums of unique elements, return all possible subsets (the power set).
 
-Implement the Twitter class:
+The solution set must not contain duplicate subsets. Return the solution in any order.
 
-Twitter() Initializes your twitter object.
-void postTweet(int userId, int tweetId) Composes a new tweet with ID tweetId by the user userId. Each call to this function will be made with a unique tweetId.
-List<Integer> getNewsFeed(int userId) Retrieves the 10 most recent tweet IDs in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user themself. Tweets must be ordered from most recent to least recent.
-void follow(int followerId, int followeeId) The user with ID followerId started following the user with ID followeeId.
-void unfollow(int followerId, int followeeId) The user with ID followerId started unfollowing the user with ID followeeId.
  
 
 Example 1:
 
-Input
-["Twitter", "postTweet", "getNewsFeed", "follow", "postTweet", "getNewsFeed", "unfollow", "getNewsFeed"]
-[[], [1, 5], [1], [1, 2], [2, 6], [1], [1, 2], [1]]
-Output
-[null, null, [5], null, null, [6, 5], null, [5]]
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Example 2:
 
-Explanation
-Twitter twitter = new Twitter();
-twitter.postTweet(1, 5); // User 1 posts a new tweet (id = 5).
-twitter.getNewsFeed(1);  // User 1's news feed should return a list with 1 tweet id -> [5]. return [5]
-twitter.follow(1, 2);    // User 1 follows user 2.
-twitter.postTweet(2, 6); // User 2 posts a new tweet (id = 6).
-twitter.getNewsFeed(1);  // User 1's news feed should return a list with 2 tweet ids -> [6, 5]. Tweet id 6 should precede tweet id 5 because it is posted after tweet id 5.
-twitter.unfollow(1, 2);  // User 1 unfollows user 2.
-twitter.getNewsFeed(1);  // User 1's news feed should return a list with 1 tweet id -> [5], since user 1 is no longer following user 2.
+Input: nums = [0]
+Output: [[],[0]]
  
 
 Constraints:
 
-1 <= userId, followerId, followeeId <= 500
-0 <= tweetId <= 104
+1 <= nums.length <= 10
+-10 <= nums[i] <= 10
+All the numbers of nums are unique.
 
 Answer:-
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
 
-class Twitter {
-    private static int timestamp = 0;
-
-    private class Tweet {
-        int id;
-        int time;
-        Tweet next;
-
-        Tweet(int id) {
-            this.id = id;
-            this.time = timestamp++;
-            this.next = null;
-        }
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(result, new ArrayList<>(), nums, 0);
+        return result;
     }
 
-    private class User {
-        int id;
-        Set<Integer> followed;
-        Tweet tweetHead;
-
-        User(int id) {
-            this.id = id;
-            followed = new HashSet<>();
-            follow(id);
-            tweetHead = null;
+    private void backtrack(List<List<Integer>> result, List<Integer> current, int[] nums, int start) {
+        result.add(new ArrayList<>(current));
+        
+        for (int i = start; i < nums.length; i++) {
+            current.add(nums[i]);
+            backtrack(result, current, nums, i + 1);
+            current.remove(current.size() - 1);
         }
-
-        void follow(int id) {
-            followed.add(id);
-        }
-
-        void unfollow(int id) {
-            if (id != this.id) {
-                followed.remove(id);
-            }
-        }
-
-        void post(int id) {
-            Tweet t = new Tweet(id);
-            t.next = tweetHead;
-            tweetHead = t;
-        }
-    }
-
-    private Map<Integer, User> userMap;
-
-    public Twitter() {
-        userMap = new HashMap<>();
-    }
-
-    public void postTweet(int userId, int tweetId) {
-        if (!userMap.containsKey(userId)) {
-            userMap.put(userId, new User(userId));
-        }
-        userMap.get(userId).post(tweetId);
-    }
-
-    public List<Integer> getNewsFeed(int userId) {
-        List<Integer> res = new ArrayList<>();
-        if (!userMap.containsKey(userId)) {
-            return res;
-        }
-
-        Set<Integer> users = userMap.get(userId).followed;
-        PriorityQueue<Tweet> q = new PriorityQueue<>((a, b) -> b.time - a.time);
-
-        for (int id : users) {
-            Tweet head = userMap.get(id) != null ? userMap.get(id).tweetHead : null;
-            if (head != null) {
-                q.add(head);
-            }
-        }
-
-        int n = 0;
-        while (!q.isEmpty() && n < 10) {
-            Tweet t = q.poll();
-            res.add(t.id);
-            n++;
-            if (t.next != null) {
-                q.add(t.next);
-            }
-        }
-
-        return res;
-    }
-
-    public void follow(int followerId, int followeeId) {
-        if (!userMap.containsKey(followerId)) {
-            userMap.put(followerId, new User(followerId));
-        }
-        if (!userMap.containsKey(followeeId)) {
-            userMap.put(followeeId, new User(followeeId));
-        }
-        userMap.get(followerId).follow(followeeId);
-    }
-
-    public void unfollow(int followerId, int followeeId) {
-        if (!userMap.containsKey(followerId) || followerId == followeeId) {
-            return;
-        }
-        userMap.get(followerId).unfollow(followeeId);
     }
 }
 
-5.Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
 
-k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.
+5.Given a m x n binary matrix mat. In one step, you can choose one cell and flip it and all the four neighbors of it if they exist (Flip is changing 1 to 0 and 0 to 1). A pair of cells are called neighbors if they share one edge.
 
-You may not alter the values in the list's nodes, only nodes themselves may be changed.
+Return the minimum number of steps required to convert mat to a zero matrix or -1 if you cannot.
+
+A binary matrix is a matrix with all cells equal to 0 or 1 only.
+
+A zero matrix is a matrix with all cells equal to 0.
 
  
 
 Example 1:
 
 
-Input: head = [1,2,3,4,5], k = 2
-Output: [2,1,4,3,5]
+Input: mat = [[0,0],[0,1]]
+Output: 3
+Explanation: One possible solution is to flip (1, 0) then (0, 1) and finally (1, 1) as shown.
 Example 2:
 
+Input: mat = [[0]]
+Output: 0
+Explanation: Given matrix is a zero matrix. We do not need to change it.
+Example 3:
 
-Input: head = [1,2,3,4,5], k = 3
-Output: [3,2,1,4,5]
+Input: mat = [[1,0,0],[1,0,0]]
+Output: -1
+Explanation: Given matrix cannot be a zero matrix.
  
 
 Constraints:
 
-The number of nodes in the list is n.
-1 <= k <= n <= 5000
-0 <= Node.val <= 1000
+m == mat.length
+n == mat[i].length
+1 <= m, n <= 3
+mat[i][j] is either 0 or 1.
 
 Answer:-
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
+
 class Solution {
-    public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode countCheck = head;
-        int count = 0;
-        
-        while (countCheck != null && count < k) {
-            countCheck = countCheck.next;
-            count++;
-        }
-        
-        if (count == k) {
-            ListNode prev = null;
-            ListNode curr = head;
-            ListNode next = null;
-            
-            for (int i = 0; i < k; i++) {
-                next = curr.next;
-                curr.next = prev;
-                prev = curr;
-                curr = next;
+    public int minFlips(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int startState = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 1) {
+                    startState |= (1 << (i * n + j));
+                }
             }
-            
-            if (next != null) {
-                head.next = reverseKGroup(next, k);
-            }
-            
-            return prev;
         }
-        
-        return head;
+
+        if (startState == 0) {
+            return 0;
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
+
+        queue.add(startState);
+        visited.add(startState);
+
+        int steps = 0;
+        int[] dirs = {0, 0, 1, -1, 0};
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int k = 0; k < size; k++) {
+                int curr = queue.poll();
+
+                if (curr == 0) {
+                    return steps;
+                }
+
+                for (int i = 0; i < m; i++) {
+                    for (int j = 0; j < n; j++) {
+                        int nextState = curr;
+                        
+                        nextState ^= (1 << (i * n + j));
+                        
+                        for (int d = 0; d < 4; d++) {
+                            int ni = i + dirs[d];
+                            int nj = j + dirs[d + 1];
+                            if (ni >= 0 && ni < m && nj >= 0 && nj < n) {
+                                nextState ^= (1 << (ni * n + nj));
+                            }
+                        }
+
+                        if (!visited.contains(nextState)) {
+                            visited.add(nextState);
+                            queue.add(nextState);
+                        }
+                    }
+                }
+            }
+            steps++;
+        }
+
+        return -1;
     }
 }
