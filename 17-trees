@@ -1,0 +1,275 @@
+1.Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+ 
+
+Example 1:
+
+Input: root = [1,null,2,3]
+
+Output: [1,3,2]
+
+Explanation:
+
+
+
+Example 2:
+
+Input: root = [1,2,3,4,5,null,8,null,null,6,7,9]
+
+Output: [4,2,6,5,7,1,3,9,8]
+
+Explanation:
+
+
+
+Example 3:
+
+Input: root = []
+
+Output: []
+
+Example 4:
+
+Input: root = [1]
+
+Output: [1]
+
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 100].
+-100 <= Node.val <= 100
+
+
+Answer:-
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        helper(root, res);
+        return res;
+    }
+
+    private void helper(TreeNode root, List<Integer> res) {
+        if (root != null) {
+            helper(root.left, res);
+            res.add(root.val);
+            helper(root.right, res);
+        }
+    }
+}
+
+2.Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+
+ 
+
+Example 1:
+
+
+Input: p = [1,2,3], q = [1,2,3]
+Output: true
+Example 2:
+
+
+Input: p = [1,2], q = [1,null,2]
+Output: false
+Example 3:
+
+
+Input: p = [1,2,1], q = [1,1,2]
+Output: false
+ 
+
+Constraints:
+
+The number of nodes in both trees is in the range [0, 100].
+-104 <= Node.val <= 104
+
+Answer:-
+
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p == null || q == null) {
+            return false;
+        }
+        if (p.val != q.val) {
+            return false;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+}
+
+3.Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+ 
+
+Example 1:
+
+
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+Example 2:
+
+
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [1, 1000].
+-100 <= Node.val <= 100
+
+Answer:-
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isMirror(root.left, root.right);
+    }
+
+    private boolean isMirror(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return true;
+        }
+        if (t1 == null || t2 == null) {
+            return false;
+        }
+        if (t1.val != t2.val) {
+            return false;
+        }
+        return isMirror(t1.left, t2.right) && isMirror(t1.right, t2.left);
+    }
+}
+
+4.Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+A valid BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys strictly less than the node's key.
+The right subtree of a node contains only nodes with keys strictly greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+ 
+
+Example 1:
+
+
+Input: root = [2,1,3]
+Output: true
+Example 2:
+
+
+Input: root = [5,1,4,null,null,3,6]
+Output: false
+Explanation: The root node's value is 5 but its right child's value is 4.
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [1, 104].
+-231 <= Node.val <= 231 - 1
+
+Answer:-
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return validate(root, null, null);
+    }
+
+    private boolean validate(TreeNode node, Integer low, Integer high) {
+        if (node == null) {
+            return true;
+        }
+
+        if ((low != null && node.val <= low) || (high != null && node.val >= high)) {
+            return false;
+        }
+
+        return validate(node.left, low, node.val) && validate(node.right, node.val, high);
+    }
+}
+
+
+5.You are given a tree with n nodes numbered from 0 to n - 1 in the form of a parent array parent where parent[i] is the parent of ith node. The root of the tree is node 0. Find the kth ancestor of a given node.
+
+The kth ancestor of a tree node is the kth node in the path from that node to the root node.
+
+Implement the TreeAncestor class:
+
+TreeAncestor(int n, int[] parent) Initializes the object with the number of nodes in the tree and the parent array.
+int getKthAncestor(int node, int k) return the kth ancestor of the given node node. If there is no such ancestor, return -1.
+ 
+
+Example 1:
+
+
+Input
+["TreeAncestor", "getKthAncestor", "getKthAncestor", "getKthAncestor"]
+[[7, [-1, 0, 0, 1, 1, 2, 2]], [3, 1], [5, 2], [6, 3]]
+Output
+[null, 1, 0, -1]
+
+Explanation
+TreeAncestor treeAncestor = new TreeAncestor(7, [-1, 0, 0, 1, 1, 2, 2]);
+treeAncestor.getKthAncestor(3, 1); // returns 1 which is the parent of 3
+treeAncestor.getKthAncestor(5, 2); // returns 0 which is the grandparent of 5
+treeAncestor.getKthAncestor(6, 3); // returns -1 because there is no such ancestor
+ 
+
+Constraints:
+
+1 <= k <= n <= 5 * 104
+parent.length == n
+parent[0] == -1
+0 <= parent[i] < n for all 0 < i < n
+0 <= node < n
+There will be at most 5 * 104 queries.
+
+Answer:-
+
+class TreeAncestor {
+    private int[][] up;
+    private int maxJump;
+
+    public TreeAncestor(int n, int[] parent) {
+        this.maxJump = (int) (Math.log(n) / Math.log(2)) + 1;
+        this.up = new int[n][maxJump];
+
+        for (int i = 0; i < n; i++) {
+            up[i][0] = parent[i];
+        }
+
+        for (int j = 1; j < maxJump; j++) {
+            for (int i = 0; i < n; i++) {
+                if (up[i][j - 1] == -1) {
+                    up[i][j] = -1;
+                } else {
+                    up[i][j] = up[up[i][j - 1]][j - 1];
+                }
+            }
+        }
+    }
+    
+    public int getKthAncestor(int node, int k) {
+        for (int j = 0; j < maxJump; j++) {
+            if ((k & (1 << j)) != 0) {
+                node = up[node][j];
+                if (node == -1) {
+                    return -1;
+                }
+            }
+        }
+        return node;
+    }
+}
